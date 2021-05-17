@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1058767353545",
+    "project_id": "ismissueresolver",
+    "storage_bucket": "ismissueresolver.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1058767353545:android:c2082e3a98c07b9050bf18",
+        "android_client_info": {
+          "package_name": "com.ismissueresolver"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1058767353545-naab8g5arqgjd2akl9eundv5hmq7lk16.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCMPj9pZck_mQAb7GArZjFk9e6sMs8v7Oc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1058767353545-naab8g5arqgjd2akl9eundv5hmq7lk16.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
