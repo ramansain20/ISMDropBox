@@ -1,7 +1,9 @@
+/* eslint-disable react-native/no-inline-styles */
 import React, {useState} from 'react';
 import {
   Text,
   Alert,
+  ImageBackground,
   Keyboard,
   TouchableWithoutFeedback,
   View,
@@ -59,11 +61,19 @@ const SignUp = props => {
       })
       .catch(error => {
         if (error.code === 'auth/email-already-in-use') {
+          Alert.alert('Sorry', 'The User Name is Already in Use', [
+            {text: 'Cancel', style: 'cancel'},
+          ]);
           console.log('That email address is already in use!');
+          return;
         }
 
         if (error.code === 'auth/invalid-email') {
+          Alert.alert('Sorry', 'The User Name is Already in Use', [
+            {text: 'Cancel', style: 'cancel'},
+          ]);
           console.log('That email address is invalid!');
+          return;
         }
 
         console.error(error);
@@ -77,34 +87,60 @@ const SignUp = props => {
 
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-        <UserInput
-          required
-          keyboardType="email-address"
-          label="Admission Number"
-          onChangeText={setAdmNoFun}
-          value={admNo}
-          title="Admission Number"
+      <View
+        style={{
+          flex: 1,
+          justifyContent: 'center',
+          alignItems: 'center',
+          backgroundColor: Color.bgColor,
+        }}>
+        <ImageBackground
+          style={{
+            flex: 1,
+            opacity: 0.5,
+            width: '100%',
+            height: '100%',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+          resizeMode="cover"
+          source={require('../assets/bgimage.jpg')}
         />
-        <UserInput
-          required
-          keyboardType="email-address"
-          label="E-Mail"
-          title="Email"
-          onChangeText={setUserNameFun}
-          value={UserName}
-          autoCapitalize="none"
-        />
-        <TextInput
-          required
-          label="Password"
-          onChangeText={setPasswordFun}
-          value={password}
-          style={styles.textArea}
-          placeholder="Password"
-          secureTextEntry={true}
-        />
-        <MyButton title="SIGNUP" onPress={signUpFunction} />
+        <View
+          style={{
+            flex: 1,
+            justifyContent: 'center',
+            alignItems: 'center',
+            width: '70%',
+          }}>
+          <UserInput
+            required
+            keyboardType="email-address"
+            label="Admission Number"
+            onChangeText={setAdmNoFun}
+            value={admNo}
+            title="Admission Number"
+          />
+          <UserInput
+            required
+            keyboardType="email-address"
+            label="E-Mail"
+            title="Email"
+            onChangeText={setUserNameFun}
+            value={UserName}
+            autoCapitalize="none"
+          />
+          <TextInput
+            required
+            label="Password"
+            onChangeText={setPasswordFun}
+            value={password}
+            style={styles.textArea}
+            placeholder="Password"
+            secureTextEntry={true}
+          />
+          <MyButton title="SIGNUP" onPress={signUpFunction} />
+        </View>
       </View>
     </TouchableWithoutFeedback>
   );

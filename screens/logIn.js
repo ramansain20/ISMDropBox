@@ -3,6 +3,7 @@
 import React, {useState} from 'react';
 import {
   Text,
+  ImageBackground,
   Alert,
   Keyboard,
   View,
@@ -46,13 +47,11 @@ const LogIn = props => {
     let response = await auth()
       .signInWithEmailAndPassword(UserName, password)
       .then(response => {
-        // console.log(response);
-        // const resData = response.text();
-        // console.log(resData);
-        return JSON.parse('"' + response + '"');
+        return response;
       })
       .then(res => {
         console.log(res);
+        console.log(res.uid);
         console.log(' signed in!');
 
         props.navigation.reset({
@@ -63,28 +62,74 @@ const LogIn = props => {
             },
           ],
         });
+      })
+      .catch(function (error) {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        if (errorCode === 'auth/wrong-password') {
+          console.log('Wrong password');
+        }
+        Keyboard.dismiss();
+        Alert.alert(
+          'Invalid User Name Or Password',
+          'Please Enter Valid User Name Or Password',
+          [
+            {
+              text: 'Cancel',
+              onPress: () => console.log('Cancel Pressed'),
+              style: 'cancel',
+            },
+          ],
+        );
       });
   };
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-        <UserInput
-          label="User Name"
-          required
-          title="UserName"
-          onChangeText={setUserNameFun}
-          value={UserName}
+      <View
+        style={{
+          flex: 1,
+          justifyContent: 'center',
+          alignItems: 'center',
+          backgroundColor: Color.bgColor,
+        }}>
+        <ImageBackground
+          style={{
+            flex: 1,
+            opacity: 0.5,
+            width: '100%',
+            height: '100%',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+          resizeMode="cover"
+          source={require('../assets/bgimage.jpg')}
         />
-        <TextInput
-          required
-          label="Password"
-          onChangeText={setPasswordFun}
-          value={password}
-          style={styles.textArea}
-          placeholder="Password"
-          secureTextEntry={true}
-        />
-        <MyButton title="LOGIN" onPress={loginFunction} />
+        <View
+          style={{
+            width: '70%',
+            flex: 1,
+            justifyContent: 'center',
+            alignItems: 'center',
+            backgroundColor: Color.bgColor,
+          }}>
+          <UserInput
+            label="User Name"
+            required
+            title="UserName"
+            onChangeText={setUserNameFun}
+            value={UserName}
+          />
+          <TextInput
+            required
+            label="Password"
+            onChangeText={setPasswordFun}
+            value={password}
+            style={styles.textArea}
+            placeholder="Password"
+            secureTextEntry={true}
+          />
+          <MyButton title="LOGIN" onPress={loginFunction} />
+        </View>
       </View>
     </TouchableWithoutFeedback>
   );

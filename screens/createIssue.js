@@ -61,6 +61,7 @@ const CreateIssue = props => {
   return (
     <View
       style={{
+        backgroundColor: Color.bgColor,
         padding: 10,
         width: '100%',
         flex: 1,

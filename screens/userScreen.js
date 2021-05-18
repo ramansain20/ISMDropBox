@@ -27,7 +27,13 @@ const UserScreen = props => {
   };
 
   return (
-    <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+    <View
+      style={{
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: Color.bgColor,
+      }}>
       <View style={styles.btn}>
         <MyButton title="Create Issue" onPress={goToCreateIssue} />
       </View>

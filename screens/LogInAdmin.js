@@ -45,11 +45,32 @@ const LogInAdmin = props => {
             },
           ],
         });
+      })
+      .catch(function (error) {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        if (errorCode === 'auth/wrong-password') {
+          console.log('Wrong password');
+        }
+        Keyboard.dismiss();
+        Alert.alert('Invalid  Password', 'Please Enter Valid  Password', [
+          {
+            text: 'Cancel',
+            onPress: () => console.log('Cancel Pressed'),
+            style: 'cancel',
+          },
+        ]);
       });
   };
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-      <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+      <View
+        style={{
+          flex: 1,
+          alignItems: 'center',
+          justifyContent: 'center',
+          backgroundColor: Color.bgColor,
+        }}>
         <TextInput
           required
           label="Password"

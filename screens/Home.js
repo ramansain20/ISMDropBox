@@ -1,5 +1,6 @@
+/* eslint-disable react-native/no-inline-styles */
 import React, {useRef} from 'react';
-import {StyleSheet, Animated, Text, View} from 'react-native';
+import {StyleSheet, Animated, Text, View, ImageBackground} from 'react-native';
 // eslint-disable-next-line no-unused-vars
 import Color from '../constants/Color';
 import MyButton from '../components/MyButton';
@@ -9,14 +10,26 @@ const Home = ({navigation}) => {
 
   const fadeIn = () => {
     Animated.timing(fadeAnim, {
-      toValue: 1,
-      duration: 2000,
+      toValue: 0.7,
+      duration: 3000,
       useNativeDriver: true,
     }).start();
   };
   fadeIn();
   return (
     <View style={styles.totalContainer}>
+      <ImageBackground
+        style={{
+          flex: 1,
+          opacity: 0.5,
+          width: '100%',
+          height: '100%',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+        resizeMode="cover"
+        source={require('../assets/bgimage.jpg')}
+      />
       <View style={styles.upper}>
         <Animated.View
           style={[
@@ -25,7 +38,10 @@ const Home = ({navigation}) => {
               opacity: fadeAnim,
             },
           ]}>
-          <MyText style={{padding: 20}} text="ISMDropBox" />
+          <MyText
+            style={{padding: 20, fontFamily: 'PTSerif-Bold'}}
+            text="ISM-DropBox"
+          />
         </Animated.View>
       </View>
       <View style={styles.lower}>
@@ -43,7 +59,7 @@ const Home = ({navigation}) => {
         </View>
         <View style={styles.btnContainer}>
           <MyButton
-            title="LogInAdmin"
+            title="Admin Login"
             onPress={() => navigation.navigate('LogInAdmin')}
           />
         </View>
@@ -63,13 +79,14 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   totalContainer: {
+    backgroundColor: '#fdbaf8',
     flex: 1,
     height: '50%',
     alignItems: 'center',
     justifyContent: 'center',
   },
   upper: {
-    flex: 2,
+    flex: 1,
   },
   lower: {
     flex: 1,
