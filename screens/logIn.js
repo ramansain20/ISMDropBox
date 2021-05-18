@@ -28,6 +28,7 @@ const LogIn = props => {
     setPassword(input);
   };
   const loginFunction = async () => {
+    Keyboard.dismiss();
     if (!UserName || !password) {
       Alert.alert(
         'Invalid User Name Or Password',

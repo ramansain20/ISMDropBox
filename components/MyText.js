@@ -6,7 +6,7 @@ import Color from '../constants/Color';
 const MyText = props => {
   return (
     <View>
-      <Text style={styles.text}>{props.text}</Text>
+      <Text style={[{...props.style}, styles.text]}>{props.text}</Text>
     </View>
   );
 };

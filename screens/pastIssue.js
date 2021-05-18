@@ -9,6 +9,7 @@ import 'firebase/database';
 import auth from '@react-native-firebase/auth';
 import MyText from '../components/MyText';
 import MyButton from '../components/MyButton';
+
 const PastIssue = props => {
   const signOut = () => {
     auth()
@@ -49,20 +50,17 @@ const PastIssue = props => {
       DATA = Object.values(res);
       KEY = Object.keys(res);
       console.log(DATA);
+      console.log(Array.isArray(DATA));
       console.log(KEY);
     });
-  // const populate = () => {
-  //   for (const key in DATA) {
-  //     let text +=<Text>key</Text>;
-  //   }
-  // };
 
   return (
-    <View>
+    <View style={styles.container}>
       <Text>hiii</Text>
-      {DATA.map((item, key) => {
-        return <Text> {item} </Text>;
-      })}
+      <Text color="black">{DATA[0]}hii</Text>
+      {/* {DATA.map(data => (
+        <Text style={styles.text}>{data}</Text>
+      ))} */}
 
       <View>
         <MyButton title="Sign out" onPress={signOut} />
@@ -70,12 +68,16 @@ const PastIssue = props => {
     </View>
   );
 };
-
 const styles = StyleSheet.create({
   text: {
     color: Color.textColor,
     fontSize: 30,
     fontWeight: '100',
+  },
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
 export default PastIssue;
