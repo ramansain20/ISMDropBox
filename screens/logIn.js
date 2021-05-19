@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable no-unused-vars */
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   Text,
   ImageBackground,
@@ -28,6 +28,7 @@ const LogIn = props => {
   const setPasswordFun = input => {
     setPassword(input);
   };
+
   const loginFunction = async () => {
     Keyboard.dismiss();
     if (!UserName || !password) {
@@ -44,8 +45,9 @@ const LogIn = props => {
       );
       return;
     }
-    let response = await auth()
-      .signInWithEmailAndPassword(UserName, password)
+
+    let response = auth()
+      .signInWithEmailAndPassword(UserName + '@test.com', password)
       .then(response => {
         return response;
       })
@@ -56,11 +58,7 @@ const LogIn = props => {
 
         props.navigation.reset({
           index: 0,
-          routes: [
-            {
-              name: 'UserScreen',
-            },
-          ],
+          routes: [{name: 'UserScreen', params: {user: UserName}}],
         });
       })
       .catch(function (error) {
@@ -144,4 +142,5 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
 });
+
 export default LogIn;

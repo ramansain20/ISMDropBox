@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 // eslint-disable-next-line no-unused-vars
 import {
   StyleSheet,
@@ -35,30 +35,7 @@ const PastIssue = props => {
       ],
     });
   };
-
-  const firebaseConfig = {
-    apiKey: 'AIzaSyBVT72lzALCKJcFZ8D2Thh0RMb760gtYYw',
-    authDomain: 'ismissueresolver.firebaseapp.com',
-    databaseURL:
-      'https://ismissueresolver-default-rtdb.asia-southeast1.firebasedatabase.app',
-    projectId: 'ismissueresolver',
-    storageBucket: 'ismissueresolver.appspot.com',
-    messagingSenderId: '1058767353545',
-    appId: '1:1058767353545:web:8f8af907029e3f1650bf18',
-    measurementId: 'G-VFC20B8RDV',
-  };
-  if (!firebase.apps.length) {
-    firebase.initializeApp(firebaseConfig);
-  }
-  firebase
-    .database()
-    .ref('/IITISM/20JE0782')
-    .once('value', function (snapshot) {
-      setData(Object.values(snapshot.val()));
-      setKey(Object.keys(snapshot.val()));
-    });
-
-  const deleteIssue = input => {
+  useEffect(() => {
     const firebaseConfig = {
       apiKey: 'AIzaSyBVT72lzALCKJcFZ8D2Thh0RMb760gtYYw',
       authDomain: 'ismissueresolver.firebaseapp.com',
@@ -75,27 +52,47 @@ const PastIssue = props => {
     }
     firebase
       .database()
-      .ref('IITISM/20JE0782/' + input)
-      .remove();
-  };
-  const KeyReturn = input => {
-    var a = data.indexOf(input.index);
-    return <Button title="Delete" onPress={deleteIssue.bind(key[a])} />;
-  };
+      .ref('/IITISM/' + props.route.params.user.user)
+      .once('value', function (snapshot) {
+        setData(Object.values(snapshot.val()));
+        setKey(Object.keys(snapshot.val()));
+      });
 
+    // const deleteIssue = input => {
+    //   const firebaseConfig = {
+    //     apiKey: 'AIzaSyBVT72lzALCKJcFZ8D2Thh0RMb760gtYYw',
+    //     authDomain: 'ismissueresolver.firebaseapp.com',
+    //     databaseURL:
+    //       'https://ismissueresolver-default-rtdb.asia-southeast1.firebasedatabase.app',
+    //     projectId: 'ismissueresolver',
+    //     storageBucket: 'ismissueresolver.appspot.com',
+    //     messagingSenderId: '1058767353545',
+    //     appId: '1:1058767353545:web:8f8af907029e3f1650bf18',
+    //     measurementId: 'G-VFC20B8RDV',
+    //   };
+    //   if (!firebase.apps.length) {
+    //     firebase.initializeApp(firebaseConfig);
+    //   }
+    //   firebase
+    //     .database()
+    //     .ref('IITISM/20JE0782/' + input)
+    //     .remove();
+    // };
+    // const KeyReturn = input => {
+    //   var a = data.indexOf(input.index);
+    //   return <Button title="Delete" onPress={deleteIssue.bind(key[a])} />;
+    // };
+  });
   return (
     <View style={styles.container}>
       <View style={styles.issueContainer}>
         <FlatList
+          numColumns={2}
           data={data}
           renderItem={itemData => (
-            <Text>
+            <View styles={styles.gridItems}>
               <Text style={styles.text}>{itemData.item}</Text>
-              {/* 
-              <Text>
-                <KeyReturn index={itemData.item} />
-              </Text> */}
-            </Text>
+            </View>
           )}
           keyExtractor={(item, index) => index.toString()}
         />
@@ -124,6 +121,12 @@ const styles = StyleSheet.create({
     flex: 6,
     width: '80%',
     borderRadius: 20,
+  },
+  gridItems: {
+    flex: 1,
+    margin: 15,
+    height: '25%',
+    borderRadius: 10,
   },
 });
 export default PastIssue;

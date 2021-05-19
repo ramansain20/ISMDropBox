@@ -32,7 +32,7 @@ const SignUp = props => {
 
   const signUpFunction = async () => {
     Keyboard.dismiss();
-    if (!UserName || !password) {
+    if (!admNo || !password) {
       Alert.alert(
         'Invalid User Name Or Password',
         'Please Enter Valid User Name Or Password',
@@ -47,7 +47,7 @@ const SignUp = props => {
       return;
     }
     let response = await auth()
-      .createUserWithEmailAndPassword(UserName, password)
+      .createUserWithEmailAndPassword(admNo + '@test.com', password)
       .then(() => {
         console.log('User account created & signed in!');
         props.navigation.reset({
@@ -121,15 +121,7 @@ const SignUp = props => {
             value={admNo}
             title="Admission Number"
           />
-          <UserInput
-            required
-            keyboardType="email-address"
-            label="E-Mail"
-            title="Email"
-            onChangeText={setUserNameFun}
-            value={UserName}
-            autoCapitalize="none"
-          />
+
           <TextInput
             required
             label="Password"

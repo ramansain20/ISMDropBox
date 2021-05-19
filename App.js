@@ -8,11 +8,11 @@ import SignUp from './screens/SignUp';
 import LogInAdmin from './screens/LogInAdmin';
 import UserScreen from './screens/userScreen';
 import Color from './constants/Color';
-import CreateIssue from './screens/createIssue';
+import RaiseIssue from './screens/raiseIssue';
 import PastIssue from './screens/pastIssue';
 import auth from '@react-native-firebase/auth';
 import AdminScreen from './screens/AdminScreen';
-
+import StudentScreen from './screens/studentScreen';
 const App = ({navigation}) => {
   const config = {
     animation: 'spring',
@@ -96,8 +96,8 @@ const App = ({navigation}) => {
           }}
         />
         <Stack.Screen
-          name="CreateIssue"
-          component={CreateIssue}
+          name="RaiseIssue"
+          component={RaiseIssue}
           options={{
             transitionSpec: {
               open: config,
@@ -108,6 +108,16 @@ const App = ({navigation}) => {
         <Stack.Screen
           name="AdminScreen"
           component={AdminScreen}
+          options={{
+            transitionSpec: {
+              open: config,
+              close: config,
+            },
+          }}
+        />
+        <Stack.Screen
+          name="StudentScreen"
+          component={StudentScreen}
           options={{
             transitionSpec: {
               open: config,

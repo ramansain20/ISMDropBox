@@ -12,7 +12,8 @@ import 'firebase/database';
 import auth from '@react-native-firebase/auth';
 import {set} from 'react-native-reanimated';
 
-const CreateIssue = props => {
+const RaiseIssue = props => {
+  console.log(props.route.params.user.user);
   const [issue, setIssue] = useState('');
   const setIssueFunction = input => {
     setIssue(input);
@@ -52,7 +53,7 @@ const CreateIssue = props => {
       firebase.initializeApp(firebaseConfig);
     }
     const db = firebase.database();
-    db.ref('users/20je0772').set({
+    db.ref('users/' + props.route.params.user.user).set({
       name: 'issue',
       value: issue,
     });
@@ -103,11 +104,12 @@ const CreateIssue = props => {
 
 const styles = StyleSheet.create({
   input: {
+    maxWidth: '80%',
     paddingRight: 15,
     lineHeight: 23,
     flex: 2,
     textAlignVertical: 'top',
-    height: '5%',
+    height: '10%',
   },
 });
-export default CreateIssue;
+export default RaiseIssue;

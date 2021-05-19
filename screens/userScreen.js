@@ -6,11 +6,12 @@ import Color from '../constants/Color';
 import auth from '@react-native-firebase/auth';
 
 const UserScreen = props => {
+  console.log(props.route.params);
   const goToCreateIssue = () => {
-    props.navigation.navigate('CreateIssue');
+    props.navigation.navigate('RaiseIssue', {user: props.route.params});
   };
   const goToPastIssue = () => {
-    props.navigation.navigate('PastIssue');
+    props.navigation.navigate('PastIssue', {user: props.route.params});
   };
   const signOut = () => {
     auth()
@@ -35,7 +36,7 @@ const UserScreen = props => {
         backgroundColor: Color.bgColor,
       }}>
       <View style={styles.btn}>
-        <MyButton title="Create Issue" onPress={goToCreateIssue} />
+        <MyButton title="Raise Issue" onPress={goToCreateIssue} />
       </View>
       <View style={styles.btn}>
         <MyButton title="Past Issue" onPress={goToPastIssue} />

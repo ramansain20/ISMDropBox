@@ -1,5 +1,5 @@
-import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import React, {useState} from 'react';
+import {StyleSheet, FlatList, Text, View} from 'react-native';
 import auth from '@react-native-firebase/auth';
 import MyButton from '../components/MyButton';
 import Color from '../constants/Color';
@@ -10,6 +10,10 @@ import 'firebase/database';
 import 'firebase/storage';
 
 const AdminScreen = props => {
+  const [students, setStudents] = useState([]);
+  const studentScreen = input => {
+    props.navigation.navigate('StudentScreen', {student: input});
+  };
   const firebaseConfig = {
     apiKey: 'AIzaSyBVT72lzALCKJcFZ8D2Thh0RMb760gtYYw',
     authDomain: 'ismissueresolver.firebaseapp.com',
@@ -29,7 +33,10 @@ const AdminScreen = props => {
     .ref('/IITISM')
     .once('value', function (snapshot) {
       console.log(snapshot.val());
+      setStudents(Object.keys(snapshot.val()));
+      console.log(students);
     });
+
   const signOut = () => {
     auth()
       .signOut()
@@ -44,9 +51,30 @@ const AdminScreen = props => {
     });
   };
   return (
-    <View style={styles.container}>
+    <View style={{flex: 1, backgroundColor: Color.bgColor}}>
       <View style={styles.container}>
         <MyButton title="Sign out" onPress={signOut} />
+      </View>
+      <View
+        style={{
+          flex: 10,
+          alignItems: 'center',
+          justifyContent: 'space-around',
+        }}>
+        <FlatList
+          numColumns={2}
+          data={students}
+          renderItem={itemData => (
+            <View styles={styles.studentContainer}>
+              <MyButton
+                onPress={studentScreen.bind(itemData.item)}
+                style={styles.text}
+                title={itemData.item}
+              />
+            </View>
+          )}
+          keyExtractor={(item, index) => index.toString()}
+        />
       </View>
     </View>
   );
@@ -61,7 +89,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   container: {
+    padding: 5,
     backgroundColor: Color.bgColor,
+    flex: 1,
+    alignItems: 'flex-end',
+  },
+  studentContainer: {
+    marginHorizontal: 10,
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',

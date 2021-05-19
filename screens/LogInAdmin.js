@@ -31,7 +31,7 @@ const LogInAdmin = props => {
         // console.log(response);
         // const resData = response.text();
         // console.log(resData);
-        return JSON.parse('"' + response + '"');
+        return response;
       })
       .then(res => {
         console.log(res);
@@ -60,6 +60,7 @@ const LogInAdmin = props => {
             style: 'cancel',
           },
         ]);
+        return;
       });
   };
   return (
